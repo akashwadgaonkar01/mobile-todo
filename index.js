@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { adminProtected } = require("./middelware/protected.middelware");
+const { adminProtected, employeeProtected } = require("./middelware/protected.middelware");
 require("dotenv").config();
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(cors({origin: "http://localhost:5173", credentials:true }));
 
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/admin", adminProtected, require("./routes/admin.routes"));
-app.use("/api/employee", require("./routes/employee.routes"));
+app.use("/api/employee",employeeProtected, require("./routes/employee.routes"));
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: "resource not found" });
