@@ -17,6 +17,8 @@ app.use("/api/employee",employeeProtected, require("./routes/employee.routes"));
 app.use("*", (req, res) => {
   res.status(404).json({ message: "resource not found" });
 });
+
+// express error handler
 app.use((err, req, res, next) => {
   if (err) {
     console.log(err)
